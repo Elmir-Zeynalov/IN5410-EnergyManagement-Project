@@ -64,10 +64,11 @@ def main():
                   b_ub=rhs_ineq, A_eq=left_eq, b_eq=rhs_eq, method="revised simplex")
 
     x = opt.x
-
-    xx_xx = [x[i:(i+24)] for i in range(0, len(x), 24)]
-
     print(x)
+
+    schedules = [x[i:(i+24)] for i in range(0, len(x), 24)]
+    for appliance in house_1.get_appliances():
+        print(appliance.name, schedules[appliance.index])
 
 
 def price_ToU(hour):

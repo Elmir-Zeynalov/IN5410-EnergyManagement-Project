@@ -1,6 +1,9 @@
+from Appliance import Appliance
+
+
 class Household:
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
         self.appliances = []
 
@@ -27,5 +30,5 @@ class Household:
             print(str(count) + " : " + str(appliance.print_appliance()))
         print()
 
-    def get_appliances(self):
+    def get_appliances(self) -> list[Appliance]:
         return self.appliances

@@ -17,7 +17,7 @@ class Appliance:
             padded_result = appliance_usage + [0] * hours
         return padded_result
 
-    def set_operation_time(self, start, end, hours, appliance_count):
+    def set_operation_time(self, start, end, hours, appliance_count) -> list[int]:
         daily_usage = [0] * hours
         daily_usage[start:end] = [1] * (end - start)
 
