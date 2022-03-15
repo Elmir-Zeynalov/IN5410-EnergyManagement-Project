@@ -1,8 +1,8 @@
 class Household:
-    appliances = []
 
     def __init__(self, name):
         self.name = name
+        self.appliances = []
 
     """
     Adds an appliance to the households list of appliances
