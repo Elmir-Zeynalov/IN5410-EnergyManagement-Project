@@ -24,7 +24,7 @@ def main():
     house_1.print_household()
     house_1.print_appliances()
 
-    rhs_eq = [1.94, 9.9, 1.44]
+    rhs_eq = [i.daily_usage for i in house_1.get_appliances()]
 
     # Setting up LHS for optimization problem
     ws_schedule = washing_machine.set_operation_time(
@@ -54,9 +54,8 @@ def main():
     """
 
     rhs_ineq = []
-    rhs_ineq_values = [1.5, 3.0, 1.8]
-    for value in rhs_ineq_values:
-        rhs_ineq += [value] * HOURS_IN_DAY
+    for value in house_1.get_appliances():
+        rhs_ineq += [value.max_hourly_consumption] * HOURS_IN_DAY
 
     objective = [price_ToU(i)
                  for i in range(HOURS_IN_DAY)] * len(house_1.appliances)
