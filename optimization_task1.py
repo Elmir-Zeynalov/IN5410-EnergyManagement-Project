@@ -4,7 +4,7 @@ from Appliance_Type import appliance_type
 from scipy.optimize import linprog
 import numpy as np
 
-HOURS_IN_DAY = 23
+HOURS_IN_DAY = 24
 
 
 def main():
