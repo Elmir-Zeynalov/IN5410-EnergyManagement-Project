@@ -21,10 +21,10 @@ class Appliance:
         daily_usage = [0] * hours
         daily_usage[start:end] = [1] * (end - start)
 
-        for i in range(self.index):
+        for _ in range(self.index):
             daily_usage = self._add_padding(True, daily_usage, hours)
 
-        for i in range(appliance_count - 1 - self.index):
+        for _ in range(appliance_count - 1 - self.index):
             daily_usage = self._add_padding(False, daily_usage, hours)
 
         return daily_usage
