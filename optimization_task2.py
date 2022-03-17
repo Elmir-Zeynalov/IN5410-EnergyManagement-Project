@@ -6,6 +6,8 @@ from optimization_task2_init import *
 
 HOURS_IN_DAY = 24
 
+
+
 house_case_1 = Household("House - Case 1")
 init_non_shiftable_appliances(house_case_1)
 init_shiftable_appliances(house_case_1)
