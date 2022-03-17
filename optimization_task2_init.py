@@ -13,9 +13,9 @@ def init_non_shiftable_appliances(household):
     #1 hour * 3.9 kWh = 3.9
     electric_stove = Appliance("Electric stove", 3.9, 0, 2, appliance_type.non_shiftable)
     #5 hours * 0.3 kWh = 1.5
-    tv = Appliance("TV", 0.3, 0, 0.05, appliance_type.non_shiftable)
+    tv = Appliance("TV", 1.5, 0, 0.05, appliance_type.non_shiftable)
     #2 hours * 0.6 kWh = 1.2
-    computer = Appliance("Computer", 0.6, 0, 0.2, appliance_type.non_shiftable)
+    computer = Appliance("Computer", 1.2, 0, 0.2, appliance_type.non_shiftable)
 
     household.add_appliance(lighting)
     household.add_appliance(heating)

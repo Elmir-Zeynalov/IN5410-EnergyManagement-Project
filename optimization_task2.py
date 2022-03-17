@@ -104,8 +104,7 @@ for i in range(len(left_eq)):
 #rhs_eq = [i.daily_usage for i in house_case_1.get_appliances()]
 ineq_matrix = np.identity(HOURS_IN_DAY * len(house_case_1.get_appliances()))
 
-rhs_eq = [20.0, 9.6, 3.96, 3.9, 0.3, 0.6, 1.44, 1.94, 2.5, 9.9, 0.893, 0.6, 0.6, 0.43, 0.43]
-
+rhs_eq = [20.0, 9.6, 3.96, 3.9, 1.5, 1.2, 1.44, 1.94, 2.5, 9.9, 0.893, 0.6, 0.6, 0.43, 0.43]
 rhs_ineq = []
 for value in house_case_1.get_appliances():
     rhs_ineq += [value.max_hourly_consumption] * HOURS_IN_DAY
