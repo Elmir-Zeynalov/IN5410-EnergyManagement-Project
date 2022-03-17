@@ -2,6 +2,8 @@ from Household import Household
 from Appliance import Appliance
 from Appliance_Type import appliance_type
 from RTPPriceGenerator import RTP_Price
+import numpy as np
+from scipy.optimize import linprog
 from optimization_task2_init import *
 
 HOURS_IN_DAY = 24
@@ -19,6 +21,9 @@ house_case_1.print_appliances()
 print("Checking random price generator:")
 rtp = RTP_Price()
 print(rtp.get_rtp_prices(), '\n')
+prices = rtp.get_rtp_prices()
+def price_RTP(hour):
+    return prices[hour]
 
 #Case 1
 """
@@ -94,8 +99,30 @@ left_eq.append(coffee_machine_schedule)
 left_eq.append(fan_schedule)
 left_eq.append(fan_schedule)
 
+for i in range(len(left_eq)):
+    print(left_eq[i])
+#rhs_eq = [i.daily_usage for i in house_case_1.get_appliances()]
+ineq_matrix = np.identity(HOURS_IN_DAY * len(house_case_1.get_appliances()))
 
-print(lighting_schedule)
+rhs_eq = [20.0, 9.6, 3.96, 3.9, 0.3, 0.6, 1.44, 1.94, 2.5, 9.9, 0.893, 0.6, 0.6, 0.43, 0.43]
+
+rhs_ineq = []
+for value in house_case_1.get_appliances():
+    rhs_ineq += [value.max_hourly_consumption] * HOURS_IN_DAY
+
+objective = [price_RTP(i)
+             for i in range(HOURS_IN_DAY)] * len(house_case_1.appliances)
+
+opt = linprog(c=objective, A_ub=ineq_matrix,
+              b_ub=rhs_ineq, A_eq=left_eq, b_eq=rhs_eq)
+
+x = opt.x
+print(x)
+print()
+schedules = [x[i:(i+24)] for i in range(0, len(x), 24)]
+for appliance in house_case_1.get_appliances():
+    print(appliance.name, schedules[appliance.index])
+
 
 #Case 2
 """

@@ -2,12 +2,19 @@ from Household import Household
 from Appliance import Appliance
 from Appliance_Type import appliance_type
 
+
 def init_non_shiftable_appliances(household):
-    lighting = Appliance("Lighting", 2.0, 1.0, 0.5, appliance_type.non_shiftable)
+    #10 hours * 2.0 kWh = 20
+    lighting = Appliance("Lighting", 20.0, 1.0, 0.5, appliance_type.non_shiftable)
+    #8 hours * 9.6 kWh = 78.6
     heating = Appliance("Heating", 9.6, 6.4, 2.2, appliance_type.non_shiftable)
+    #24 hours * 3.96 kWh 95.04
     refrigerator_freezer = Appliance("Refrigerator", 3.96, 1.32, 1.0, appliance_type.non_shiftable)
+    #1 hour * 3.9 kWh = 3.9
     electric_stove = Appliance("Electric stove", 3.9, 0, 2, appliance_type.non_shiftable)
+    #5 hours * 0.3 kWh = 1.5
     tv = Appliance("TV", 0.3, 0, 0.05, appliance_type.non_shiftable)
+    #2 hours * 0.6 kWh = 1.2
     computer = Appliance("Computer", 0.6, 0, 0.2, appliance_type.non_shiftable)
 
     household.add_appliance(lighting)
