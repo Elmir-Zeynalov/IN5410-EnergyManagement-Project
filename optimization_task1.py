@@ -2,6 +2,7 @@ from Household import Household
 from Appliance import Appliance
 from Appliance_Type import appliance_type
 from scipy.optimize import linprog
+from PriceGenerators import ToU_Price
 import numpy as np
 
 HOURS_IN_DAY = 24
@@ -26,7 +27,7 @@ def main():
 
     rhs_eq = [i.daily_usage for i in house_1.get_appliances()]
 
-    # Setting up LHS for optimization problem
+    # Setting up LHS for optimization problem (equality)
     ws_schedule = washing_machine.set_operation_time(
         7, 23, HOURS_IN_DAY, len(house_1.appliances))
     ev_schedule = ev.set_operation_time(
@@ -57,8 +58,8 @@ def main():
     for value in house_1.get_appliances():
         rhs_ineq += [value.max_hourly_consumption] * HOURS_IN_DAY
 
-    objective = [price_ToU(i)
-                 for i in range(HOURS_IN_DAY)] * len(house_1.appliances)
+    ToU = ToU_Price()
+    objective = ToU.get_ToU_prices(HOURS_IN_DAY) * len(house_1.appliances)
 
     opt = linprog(c=objective, A_ub=ineq_matrix,
                   b_ub=rhs_ineq, A_eq=left_eq, b_eq=rhs_eq, method="revised simplex")
@@ -70,9 +71,8 @@ def main():
     for appliance in house_1.get_appliances():
         print(appliance.name, schedules[appliance.index])
 
-
-def price_ToU(hour):
-    return 1 if 17 <= hour <= 20 else 0.5
+    print('Total optimized cost for the household in NOK',
+          np.round(opt.fun, 2))
 
 
 if __name__ == '__main__':
