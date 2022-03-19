@@ -17,15 +17,17 @@ class Appliance:
             padded_result = appliance_usage + [0] * hours
         return padded_result
 
-    def set_operation_time(self, start, end, hours, appliance_count) -> list[int]:
-        daily_usage = [0] * hours
-        daily_usage[start:end] = [1] * (end - start)
+    def set_operation_time(self, start, end, hours_in_day, appliance_count) -> list[int]:
+        daily_usage = [0] * hours_in_day
+        for i in range(len(daily_usage)):
+            if (i >= start or i < end):
+                daily_usage[i] = 1
 
         for _ in range(self.index):
-            daily_usage = self._add_padding(True, daily_usage, hours)
+            daily_usage = self._add_padding(True, daily_usage, hours_in_day)
 
         for _ in range(appliance_count - 1 - self.index):
-            daily_usage = self._add_padding(False, daily_usage, hours)
+            daily_usage = self._add_padding(False, daily_usage, hours_in_day)
 
         return daily_usage
 
